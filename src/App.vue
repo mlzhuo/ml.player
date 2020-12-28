@@ -1,19 +1,14 @@
 <template>
-  <router-view />
-  <MusicToolBar></MusicToolBar>
+  <div :class="['app-inner-content', $options.styleModel]">
+    <router-view />
+    <MusicToolBar></MusicToolBar>
+  </div>
 </template>
 
 <script>
-import MusicToolBar from "./components/MusicToolBar.vue";
+import MusicToolBar from './components/MusicToolBar.vue';
 export default {
-  components: { MusicToolBar },
-  setup() {
-    const hour = new Date().getHours();
-    const model = hour > 6 && hour < 20 ? "" : "dark-model";
-    return {
-      model,
-    };
-  },
+  components: { MusicToolBar }
 };
 </script>
 
@@ -22,5 +17,10 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+.app-inner-content {
+  min-height: 100vh;
+  width: 100vw;
 }
 </style>

@@ -2,9 +2,9 @@
   <div class="home">
     <HeadSearchBar></HeadSearchBar>
     <UserInfo></UserInfo>
-    <TitleBar title="推荐歌单" @titleTab="titleTab"></TitleBar>
-    <GirdList></GirdList>
     <TitleBar title="我的歌单" @titleTab="titleTab"></TitleBar>
+    <GirdList></GirdList>
+    <TitleBar title="推荐歌单" @titleTab="titleTab"></TitleBar>
     <div :class="['placeholder', $options.styleModel]"></div>
   </div>
 </template>
