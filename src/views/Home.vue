@@ -1,18 +1,41 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <HeadSearchBar></HeadSearchBar>
+    <UserInfo></UserInfo>
+    <TitleBar title="推荐歌单" @titleTab="titleTab"></TitleBar>
+    <GirdList></GirdList>
+    <TitleBar title="我的歌单" @titleTab="titleTab"></TitleBar>
+    <div :class="['placeholder', $options.styleModel]"></div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import HeadSearchBar from "@/components/HeadSearchBar.vue";
+import UserInfo from "@/components/UserInfo.vue";
+import TitleBar from "@/components/TitleBar.vue";
+import GirdList from "@/components/GirdList.vue";
 
 export default {
   name: "Home",
   components: {
-    HelloWorld
-  }
+    HeadSearchBar,
+    UserInfo,
+    TitleBar,
+    GirdList,
+  },
+  setup() {
+    const titleTab = () => {
+      // TODO: 点击titlebar逻辑
+    };
+    return {
+      titleTab,
+    };
+  },
 };
 </script>
+<style lang="scss" scoped>
+.placeholder {
+  height: 100px;
+  width: 100vw;
+}
+</style>
