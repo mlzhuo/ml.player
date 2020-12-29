@@ -4,7 +4,7 @@
  */
 const setModel = () => {
 	const hour = new Date().getHours();
-	const styleModel = hour < 7 || hour > 18 ? 'dark-model' : 'light-model';
+	const styleModel = hour < 7 || hour > 18 ? 'dark-model' : 'dark-model';
 	return styleModel;
 };
 const mixin = {

@@ -26,6 +26,12 @@ body {
 			background-color: $darkMusicPlayBtnColor;
 		}
 	}
+	.song-name {
+		color: $darkMusicToolSongColor;
+	}
+	.singer-name {
+		color: $darkMusicToolSingerColor;
+	}
 }
 .light-model {
 	background-color: $lightBgColor;
@@ -44,6 +50,12 @@ body {
 		.play-btn {
 			background-color: $lightMusicPlayBtnColor;
 		}
+	}
+	.song-name {
+		color: $lightMusicToolSongColor;
+	}
+	.singer-name {
+		color: $lightMusicToolSingerColor;
 	}
 }
 .flex {

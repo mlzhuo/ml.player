@@ -3,8 +3,8 @@
     <section class="list-item flex align-center content-between">
       <img />
       <div class="item-info flex column content-center">
-        <text class="main-title one-lines-text">I Dreamt We Spoke Again</text>
-        <text class="sub-title one-lines-text">Death Cab For Cutie</text>
+        <text class="song-name one-lines-text">I Dreamt We Spoke Again</text>
+        <text class="singer-name one-lines-text">Death Cab For Cutie</text>
       </div>
       <div class="play-btn">
         <i class="iconfont ml-bofang"></i>
@@ -44,10 +44,10 @@ export default {
     text {
       flex: 1;
       width: 100%;
-      &.main-title {
-        font-size: 15px;
+      &.song-name {
+        font-size: 14px;
       }
-      &.sub-title {
+      &.singer-name {
         font-size: 12px;
         margin-top: 5px;
       }
