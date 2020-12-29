@@ -59,7 +59,7 @@ export default {
     const itemStyle = `height: ${itemHeight}px;width:${itemWidth}px;`;
     const imgStyle = `width:${itemWidth}px;height:${itemWidth}px;`;
     const listData = computed(() => {
-      const tempList = [...musicList, { add: true, text: "创建新歌单" }];
+      const tempList = [...musicList, { add: true }];
       const last = tempList.length % column;
       if (last !== 0) {
         tempList.push(..._.fill(Array(column - last), {}));
