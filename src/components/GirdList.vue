@@ -8,37 +8,48 @@
       :key="index"
     >
       <img :style="imgStyle" :src="item.img" v-if="item.img" />
-      <text class="one-lines-text" v-if="item.text">{{ item.text }}</text>
+      <div
+        :class="['add-new', $options.styleModel]"
+        :style="imgStyle"
+        v-if="item.add"
+      >
+        <div class="flex align-center content-center">
+          <i class="iconfont ml-add"></i>
+        </div>
+      </div>
+      <text class="item-title one-lines-text" v-if="item.text">{{
+        item.text
+      }}</text>
     </section>
   </div>
 </template>
 
 <script>
-import { computed, getCurrentInstance } from 'vue';
-import _ from 'lodash';
+import { computed, getCurrentInstance } from "vue";
+import _ from "lodash";
 export default {
   props: {
     itemHeight: {
-      type: Number
+      type: Number,
     },
     column: {
       type: Number,
-      default: 3
+      default: 3,
     },
     gap: {
       type: Number,
-      default: 10
+      default: 10,
     },
     musicList: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   emits: {
     itemHeight: () => true,
     gap: () => true,
     column: () => true,
-    musicList: () => true
+    musicList: () => true,
   },
   setup() {
     const { ctx } = getCurrentInstance();
@@ -48,7 +59,7 @@ export default {
     const itemStyle = `height: ${itemHeight}px;width:${itemWidth}px;`;
     const imgStyle = `width:${itemWidth}px;height:${itemWidth}px;`;
     const listData = computed(() => {
-      const tempList = [...musicList, {img: 'url', text: '创建新歌单'}];
+      const tempList = [...musicList, { add: true, text: "创建新歌单" }];
       const last = tempList.length % column;
       if (last !== 0) {
         tempList.push(..._.fill(Array(column - last), {}));
@@ -58,9 +69,9 @@ export default {
     return {
       itemStyle,
       imgStyle,
-      listData
+      listData,
     };
-  }
+  },
 };
 </script>
 
@@ -77,13 +88,21 @@ export default {
     img {
       border-radius: 10px;
     }
-    text {
+    .item-title {
       width: 100%;
       flex: 1;
       align-self: start;
       margin-top: 8px;
       line-height: 14px;
       font-size: 12px;
+    }
+    .add-new {
+      border-radius: 10px;
+      overflow: hidden;
+      > div {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 }
