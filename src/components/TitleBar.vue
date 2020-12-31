@@ -1,9 +1,6 @@
 <template>
   <div
-    :class="[
-      'title-bar flex align-center content-between',
-      $options.styleModel,
-    ]"
+    :class="['title-bar flex align-center content-between', styleModel]"
     @click="$emit('titleTab', title)"
   >
     <text>{{ title }}</text>
@@ -12,21 +9,23 @@
 </template>
 
 <script>
+import { inject } from 'vue';
 export default {
   props: {
     title: {
       type: String,
-      default: "",
-    },
+      default: ''
+    }
   },
   emits: {
     titleTab: () => {
       return true;
-    },
+    }
   },
   setup() {
-    return {};
-  },
+    const styleModel = inject('styleModel');
+    return { styleModel };
+  }
 };
 </script>
 

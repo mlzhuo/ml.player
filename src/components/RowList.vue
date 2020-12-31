@@ -1,5 +1,5 @@
 <template>
-  <div :class="['row-list', $options.styleModel]">
+  <div :class="['row-list', styleModel]">
     <section class="list-item flex align-center content-between">
       <img />
       <div class="item-info flex column content-center">
@@ -14,17 +14,23 @@
 </template>
 
 <script>
+import { inject } from 'vue';
 export default {
   props: {
     musicList: {
       type: Array,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   emits: {
-    musicList: () => true,
+    musicList: () => true
   },
-  setup() {},
+  setup() {
+    const styleModel = inject('styleModel');
+    return {
+      styleModel
+    };
+  }
 };
 </script>
 

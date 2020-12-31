@@ -1,14 +1,25 @@
 <template>
-  <div :class="['app-inner-content', $options.styleModel]">
+  <div :class="['app-inner-content', styleModel]">
     <router-view />
-    <MusicToolBar></MusicToolBar>
+    <MusicToolBar v-show="isShowMusicBar"></MusicToolBar>
   </div>
 </template>
 
 <script>
 import MusicToolBar from './components/MusicToolBar.vue';
+import { computed, getCurrentInstance, inject } from 'vue';
 export default {
-  components: { MusicToolBar }
+  components: { MusicToolBar },
+  setup() {
+    const styleModel = inject('styleModel');
+    const { ctx } = getCurrentInstance();
+    ctx.$store.commit('toggleMusicBar', true);
+    const isShowMusicBar = computed(() => ctx.$store.state.isShowMusicBar);
+    return {
+      styleModel,
+      isShowMusicBar
+    };
+  }
 };
 </script>
 

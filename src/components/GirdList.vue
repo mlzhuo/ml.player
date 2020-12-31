@@ -1,5 +1,5 @@
 <template>
-  <div :class="['gird-list flex content-between', $options.styleModel]">
+  <div :class="['gird-list flex content-between', styleModel]">
     <section
       class="gird-item flex align-center content-between column"
       :class="index < column + 1 ? 'no-m-top' : ''"
@@ -8,11 +8,7 @@
       :key="index"
     >
       <img :style="imgStyle" :src="item.img" v-if="item.img" />
-      <div
-        :class="['add-new', $options.styleModel]"
-        :style="imgStyle"
-        v-if="item.add"
-      >
+      <div :class="['add-new', styleModel]" :style="imgStyle" v-if="item.add">
         <div class="flex align-center content-center">
           <i class="iconfont ml-add"></i>
         </div>
@@ -25,33 +21,34 @@
 </template>
 
 <script>
-import { computed, getCurrentInstance } from "vue";
-import _ from "lodash";
+import { computed, getCurrentInstance, inject } from 'vue';
+import _ from 'lodash';
 export default {
   props: {
     itemHeight: {
-      type: Number,
+      type: Number
     },
     column: {
       type: Number,
-      default: 3,
+      default: 3
     },
     gap: {
       type: Number,
-      default: 10,
+      default: 10
     },
     musicList: {
       type: Array,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
   emits: {
     itemHeight: () => true,
     gap: () => true,
     column: () => true,
-    musicList: () => true,
+    musicList: () => true
   },
   setup() {
+    const styleModel = inject('styleModel');
     const { ctx } = getCurrentInstance();
     const { itemHeight, column, gap, musicList } = ctx;
     const screenWidth = document.body.clientWidth;
@@ -67,11 +64,12 @@ export default {
       return tempList;
     });
     return {
+      styleModel,
       itemStyle,
       imgStyle,
-      listData,
+      listData
     };
-  },
+  }
 };
 </script>
 

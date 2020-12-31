@@ -1,7 +1,5 @@
 <template>
-  <div
-    :class="['music-bar flex align-end content-between', $options.styleModel]"
-  >
+  <div :class="['music-bar flex align-end content-between', styleModel]">
     <div class="info-view flex align-center">
       <img />
       <div class="name flex column content-center">
@@ -14,7 +12,15 @@
 </template>
 
 <script>
-export default {};
+import { inject } from 'vue';
+export default {
+  setup() {
+    const styleModel = inject('styleModel');
+    return {
+      styleModel
+    };
+  }
+};
 </script>
 
 <style lang="scss" scoped>

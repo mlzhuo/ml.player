@@ -1,9 +1,6 @@
 <template>
   <div
-    :class="[
-      'header-search-bar flex align-center content-between',
-      $options.styleModel,
-    ]"
+    :class="['header-search-bar flex align-center content-between', styleModel]"
   >
     <div class="search-view flex align-center content-between">
       <i class="iconfont ml-sousuo"></i>
@@ -13,7 +10,13 @@
 </template>
 
 <script>
-export default {};
+import { inject } from 'vue';
+export default {
+  setup() {
+    const styleModel = inject('styleModel');
+    return { styleModel };
+  }
+};
 </script>
 
 <style lang="scss" scoped>
