@@ -1,23 +1,35 @@
 <template>
   <div :class="['app-inner-content', styleModel]">
+    <NavigationBar
+      v-if="isShowNavigationBar"
+      :title="navigationBarTitle"
+    ></NavigationBar>
     <router-view />
     <MusicToolBar v-show="isShowMusicBar"></MusicToolBar>
   </div>
 </template>
 
 <script>
+import NavigationBar from './components/NavigationBar';
 import MusicToolBar from './components/MusicToolBar.vue';
 import { computed, getCurrentInstance, inject } from 'vue';
 export default {
-  components: { MusicToolBar },
+  components: { MusicToolBar, NavigationBar },
   setup() {
     const styleModel = inject('styleModel');
     const { ctx } = getCurrentInstance();
-    ctx.$store.commit('toggleMusicBar', true);
     const isShowMusicBar = computed(() => ctx.$store.state.isShowMusicBar);
+    const isShowNavigationBar = computed(
+      () => ctx.$store.state.isShowNavigationBar
+    );
+    const navigationBarTitle = computed(
+      () => ctx.$store.state.navigationBarTitle
+    );
     return {
       styleModel,
-      isShowMusicBar
+      isShowMusicBar,
+      isShowNavigationBar,
+      navigationBarTitle
     };
   }
 };

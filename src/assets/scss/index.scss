@@ -2,103 +2,104 @@
 @import './config.scss';
 html,
 body {
-	padding: 0;
-	margin: 0;
-	font-size: 16px;
-	min-height: 100vh;
-	width: 100vw;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  min-height: 100vh;
+  width: 100vw;
 }
 .dark-model {
-	background-color: $darkBgColor;
-	color: $darkColor;
-	> div {
-		background-color: $darkSubBgColor;
-	}
-	input {
-		color: $darkColor;
-	}
-	&.music-bar {
-		background: none;
-		.info-view {
-			background-color: $darkSubBgColor;
-		}
-		.play-btn {
-			background-color: $darkMusicPlayBtnColor;
-		}
-	}
-	.song-name {
-		color: $darkMusicToolSongColor;
-	}
-	.singer-name {
-		color: $darkMusicToolSingerColor;
-	}
+  background-color: $darkBgColor;
+  color: $darkColor;
+  > div {
+    background-color: $darkSubBgColor;
+  }
+  input {
+    color: $darkColor;
+  }
+  &.music-bar {
+    background: none;
+    .info-view {
+      background-color: $darkSubBgColor;
+    }
+    .play-btn {
+      background-color: $darkMusicPlayBtnColor;
+    }
+  }
+  .song-name {
+    color: $darkMusicToolSongColor;
+  }
+  .singer-name {
+    color: $darkMusicToolSingerColor;
+  }
 }
 .light-model {
-	background-color: $lightBgColor;
-	color: $lightColor;
-	> div {
-		background-color: $lightSubBgColor;
-	}
-	input {
-		color: $lightColor;
-	}
-	&.music-bar {
-		background: none;
-		.info-view {
-			background-color: $lightSubBgColor;
-		}
-		.play-btn {
-			background-color: $lightMusicPlayBtnColor;
-		}
-	}
-	.song-name {
-		color: $lightMusicToolSongColor;
-	}
-	.singer-name {
-		color: $lightMusicToolSingerColor;
-	}
+  background-color: $lightBgColor;
+  color: $lightColor;
+  > div {
+    background-color: $lightSubBgColor;
+  }
+  input {
+    color: $lightColor;
+  }
+  &.music-bar {
+    background: none;
+    .info-view {
+      background-color: $lightSubBgColor;
+    }
+    .play-btn {
+      background-color: $lightMusicPlayBtnColor;
+    }
+  }
+  .song-name {
+    color: $lightMusicToolSongColor;
+  }
+  .singer-name {
+    color: $lightMusicToolSingerColor;
+  }
 }
 .flex {
-	display: flex;
-	flex-direction: row;
-	align-items: flex-start;
-	justify-content: flex-start;
-	&.column {
-		flex-direction: column;
-	}
-	&.align {
-		&-center {
-			align-items: center;
-		}
-		&-end {
-			align-items: flex-end;
-		}
-	}
-	&.content {
-		&-between {
-			justify-content: space-between;
-		}
-		&-around {
-			justify-content: space-around;
-		}
-		&-end {
-			justify-content: flex-end;
-		}
-		&-center {
-			justify-content: center;
-		}
-	}
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  &.column {
+    flex-direction: column;
+  }
+  &.align {
+    &-center {
+      align-items: center;
+    }
+    &-end {
+      align-items: flex-end;
+    }
+  }
+  &.content {
+    &-between {
+      justify-content: space-between;
+    }
+    &-around {
+      justify-content: space-around;
+    }
+    &-end {
+      justify-content: flex-end;
+    }
+    &-center {
+      justify-content: center;
+    }
+  }
 }
 
 /* 文字溢出处理 2行 + ... */
 .two-lines-text {
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 2;
-	overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 .one-lines-text {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+

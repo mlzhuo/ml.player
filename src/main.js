@@ -4,14 +4,23 @@ import router from './router';
 import store from './store';
 import './assets/scss/index.scss';
 import { $get, $post } from './assets/utils/axios';
+import {
+  TOGGLE_SHOW_MUSIC_BAR,
+  TOGGLE_SHOW_NAVIGATION_BAR
+} from './store/constant';
 
 const showMusicBarPathList = ['/'];
 router.beforeEach((to, from, next) => {
   const { path } = to;
-  if (showMusicBarPathList.findIndex(v => v == path) !== -1) {
-    store.commit('toggleMusicBar', true);
+  if (path == '/') {
+    store.commit(TOGGLE_SHOW_NAVIGATION_BAR, false);
   } else {
-    store.commit('toggleMusicBar', false);
+    store.commit(TOGGLE_SHOW_NAVIGATION_BAR, true);
+  }
+  if (showMusicBarPathList.findIndex(v => v == path) !== -1) {
+    store.commit(TOGGLE_SHOW_MUSIC_BAR, true);
+  } else {
+    store.commit(TOGGLE_SHOW_MUSIC_BAR, false);
   }
   next();
 });

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { getCurrentInstance, inject, onBeforeMount } from 'vue';
+import { getCurrentInstance, inject } from 'vue';
 export default {
   setup() {
     const styleModel = inject('styleModel');
@@ -37,8 +37,8 @@ export default {
     text-align: center;
     font-size: 14px;
     img {
-      width: 50px;
-      height: 50px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       overflow: hidden;
     }

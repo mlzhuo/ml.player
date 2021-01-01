@@ -21,7 +21,6 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     // 对响应数据做点什么
-    console.log('res', response);
     return response;
   },
   error => {
@@ -34,6 +33,5 @@ export const $get = ({ url }) => {
   return service.request({ method: 'GET', url });
 };
 export const $post = ({ url, data }) => {
-  console.log(url);
   return service.request({ method: 'POST', url, data });
 };
