@@ -33,7 +33,7 @@ export default {
           localStorage.setItem('userData', JSON.stringify(userData));
           ctx.$router.replace('/');
         },
-        failed: message => console.log(message)
+        failed: message => alert(message)
       });
     };
     return {

@@ -58,6 +58,13 @@ body {
     color: $lightMusicToolSingerColor;
   }
 }
+.user-info .inner-content {
+  .nickname,
+  .signature {
+    color: $darkMusicToolSongColor;
+  }
+}
+
 .flex {
   display: flex;
   flex-direction: row;
@@ -102,4 +109,3 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-

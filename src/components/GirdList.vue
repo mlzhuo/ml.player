@@ -2,19 +2,20 @@
   <div :class="['gird-list flex content-between', styleModel]">
     <section
       class="gird-item flex align-center content-between column"
-      :class="index < column + 1 ? 'no-m-top' : ''"
+      :class="index < column ? 'no-m-top' : ''"
       :style="itemStyle"
       v-for="(item, index) in listData"
       :key="index"
+      @click="itemTap(item.id)"
     >
-      <img :style="imgStyle" :src="item.img" v-if="item.img" />
+      <img :style="imgStyle" :src="item.coverImgUrl" v-if="item.coverImgUrl" />
       <div :class="['add-new', styleModel]" :style="imgStyle" v-if="item.add">
         <div class="flex align-center content-center">
           <i class="iconfont ml-add"></i>
         </div>
       </div>
-      <text class="item-title one-lines-text" v-if="item.text">{{
-        item.text
+      <text class="item-title two-lines-text" v-if="item.name">{{
+        item.name
       }}</text>
     </section>
   </div>
@@ -23,6 +24,7 @@
 <script>
 import { computed, getCurrentInstance, inject } from 'vue';
 import _ from 'lodash';
+import { FILTER_USER_PLAYLIST } from '../store/constant';
 export default {
   props: {
     itemHeight: {
@@ -36,38 +38,48 @@ export default {
       type: Number,
       default: 10
     },
-    musicList: {
-      type: Array,
-      default: () => []
+    specialType: {
+      type: Number,
+      required: true
     }
   },
   emits: {
     itemHeight: () => true,
     gap: () => true,
     column: () => true,
-    musicList: () => true
+    specialType: () => true
   },
   setup() {
     const styleModel = inject('styleModel');
     const { ctx } = getCurrentInstance();
-    const { itemHeight, column, gap, musicList } = ctx;
+    const { itemHeight, column, gap, specialType } = ctx;
     const screenWidth = document.body.clientWidth;
     const itemWidth = (screenWidth - (column - 1) * gap - 40) / column;
     const itemStyle = `height: ${itemHeight}px;width:${itemWidth}px;`;
     const imgStyle = `width:${itemWidth}px;height:${itemWidth}px;`;
+    const playList = computed(() =>
+      ctx.$store.getters[FILTER_USER_PLAYLIST](specialType)
+    );
     const listData = computed(() => {
-      const tempList = [...musicList, { add: true }];
+      const tempList =
+        specialType == 0
+          ? [...playList.value, { add: true }]
+          : [...playList.value];
       const last = tempList.length % column;
       if (last !== 0) {
         tempList.push(..._.fill(Array(column - last), {}));
       }
       return tempList;
     });
+
+    const itemTap = id => ctx.$router.push(`/playlistdetail?id=${id}`);
+
     return {
       styleModel,
       itemStyle,
       imgStyle,
-      listData
+      listData,
+      itemTap
     };
   }
 };
@@ -76,7 +88,7 @@ export default {
 <style lang="scss" scoped>
 .gird-list {
   flex-wrap: wrap;
-  padding: 10px 20px;
+  padding: 0 20px 10px;
   .gird-item {
     margin-top: 16px;
     overflow: hidden;
