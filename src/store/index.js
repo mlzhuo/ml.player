@@ -12,7 +12,8 @@ import {
   SAVE_USER_PLAYLIST,
   FILTER_USER_PLAYLIST,
   GET_PLAYLIST_DETAIL,
-  GET_SONG_DETAIL
+  GET_SONG_DETAIL,
+  CHECK_MUSIC
 } from './constant';
 export default createStore({
   state: {
@@ -22,7 +23,8 @@ export default createStore({
     isShowNavigationBar: true,
     navigationBarTitle: 'ML Player',
     userInfo: {},
-    playList: []
+    playList: [],
+    currentPlayList: []
   },
   mutations: {
     [TOGGLE_SHOW_MUSIC_BAR]: (state, isShowMusicBar) => {
@@ -51,7 +53,7 @@ export default createStore({
     [LOGIN]: async ({ commit }, { data, success, failed }) => {
       const { email, md5_password } = data;
       const res = await $post({
-        url: `login?timestamp=${+new Date()}`,
+        url: `login`,
         data: { email, md5_password }
       });
       if (res.status == 200 && res.data.code == 200) {
@@ -67,9 +69,7 @@ export default createStore({
     [GET_USER_PLAYLIST]: async ({ commit, state }, { success, failed }) => {
       if (!state.userInfo.userId) return;
       const res = await $get({
-        url: `/user/playlist?timestamp=${+new Date()}&uid=${
-          state.userInfo.userId
-        }`
+        url: `/user/playlist?uid=${state.userInfo.userId}`
       });
       if (res.status == 200 && res.data.code == 200) {
         commit(SAVE_USER_PLAYLIST, res.data.playlist);
@@ -79,14 +79,10 @@ export default createStore({
         failed && failed(message);
       }
     },
-    [GET_PLAYLIST_DETAIL]: async ({ dispatch }, { id, success, failed }) => {
+    [GET_PLAYLIST_DETAIL]: async (context, { id, success, failed }) => {
       const res = await $get({ url: `/playlist/detail?id=${id}` });
       if (res.status == 200 && res.data.code == 200) {
-        dispatch(GET_SONG_DETAIL, {
-          ids: res.data.playlist.trackIds.map(v => v.id).join(','),
-          success,
-          failed
-        });
+        success && success(res.data);
       } else {
         const { message } = res.data;
         failed && failed(message);
@@ -100,6 +96,15 @@ export default createStore({
         const { message } = res.data;
         failed && failed(message);
       }
+    },
+    [CHECK_MUSIC]: async (context, { id, success, failed }) => {
+      const res = await $get({ url: `/check/music?id=${id}` });
+      if (res.data.success) {
+        success && success(res.data.success)
+      } else {
+        failed && failed(res.data.message)
+      }
+      console.log(res.data.success);
     }
   },
   getters: {

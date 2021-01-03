@@ -1,20 +1,30 @@
 <template>
   <div :class="['row-list', styleModel]">
-    <section class="list-item flex align-center content-between">
-      <img />
+    <section
+      v-for="item in musicList"
+      :key="item.id"
+      class="list-item flex align-center content-between"
+      @click="itemTap(item.id)"
+    >
+      <img :src="item.al.picUrl" />
       <div class="item-info flex column content-center">
-        <text class="song-name one-lines-text">I Dreamt We Spoke Again</text>
-        <text class="singer-name one-lines-text">Death Cab For Cutie</text>
+        <text class="song-name one-lines-text">{{ item.name }}</text>
+        <text class="singer-name one-lines-text"
+          >{{ item.ar.map(v => v.name).join(' / ') }} 《{{
+            item.al.name
+          }}》</text
+        >
       </div>
-      <div class="play-btn">
+      <!-- <div class="play-btn">
         <i class="iconfont ml-bofang"></i>
-      </div>
+      </div> -->
     </section>
   </div>
 </template>
 
 <script>
-import { inject } from 'vue';
+import { getCurrentInstance, inject } from 'vue';
+import { CHECK_MUSIC } from '../store/constant';
 export default {
   props: {
     musicList: {
@@ -26,9 +36,14 @@ export default {
     musicList: () => true
   },
   setup() {
+    const { ctx } = getCurrentInstance();
     const styleModel = inject('styleModel');
+    const itemTap = id => {
+      ctx.$store.dispatch(CHECK_MUSIC, { id });
+    };
     return {
-      styleModel
+      styleModel,
+      itemTap
     };
   }
 };

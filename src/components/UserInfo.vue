@@ -14,6 +14,7 @@
 <script>
 import { getCurrentInstance, inject } from 'vue';
 import defaultAvatarUrl from '../assets/images/ml-player.png';
+import { SET_NAVIGATION_BAR_TITLE } from '../store/constant';
 export default {
   setup() {
     const styleModel = inject('styleModel');
@@ -29,6 +30,9 @@ export default {
     const style = backgroundUrl
       ? `background: url(${backgroundUrl}) no-repeat center;background-size: cover;`
       : '';
+    if (userId) {
+      ctx.$store.commit(SET_NAVIGATION_BAR_TITLE, '');
+    }
     const loginAction = () => {
       if (userId) return;
       ctx.$router.push('/login');
@@ -50,7 +54,7 @@ export default {
 
 <style lang="scss" scoped>
 .user-info {
-  padding: 0 20px;
+  padding: 0 20px 10px;
   box-sizing: border-box;
   .inner-content {
     padding: 10px 20px;
