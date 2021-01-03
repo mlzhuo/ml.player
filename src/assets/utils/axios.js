@@ -9,6 +9,11 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // 在发送请求之前做些什么
+    const url = config.url;
+    config.url =
+      url.indexOf('?') !== -1
+        ? `${url}&timestamp=${+new Date()}`
+        : `${url}?timestamp=${+new Date()}`;
     return config;
   },
   error => {
