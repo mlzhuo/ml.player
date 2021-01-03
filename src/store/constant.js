@@ -4,3 +4,4 @@ export const SET_NAVIGATION_BAR_TITLE = 'SET_NAVIGATION_BAR_TITLE';
 export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const INIT_STATE = 'INIT_STATE';

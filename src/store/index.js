@@ -6,7 +6,8 @@ import {
   SET_NAVIGATION_BAR_TITLE,
   LOGIN,
   LOGIN_SUCCESS,
-  LOGIN_FAILED
+  LOGIN_FAILED,
+  INIT_STATE
 } from './constant';
 export default createStore({
   state: {
@@ -32,6 +33,9 @@ export default createStore({
     },
     [LOGIN_FAILED](state) {
       state.userInfo = {};
+    },
+    [INIT_STATE](state, payload) {
+      state = Object.assign(state, payload);
     }
   },
   actions: {

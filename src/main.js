@@ -5,8 +5,14 @@ import store from './store';
 import './assets/scss/index.scss';
 import {
   TOGGLE_SHOW_MUSIC_BAR,
-  TOGGLE_SHOW_NAVIGATION_BAR
+  TOGGLE_SHOW_NAVIGATION_BAR,
+  INIT_STATE
 } from './store/constant';
+
+const userData = localStorage.getItem('userData');
+if (userData) {
+  store.commit(INIT_STATE, JSON.parse(userData));
+}
 
 const showMusicBarPathList = ['/'];
 router.beforeEach((to, from, next) => {

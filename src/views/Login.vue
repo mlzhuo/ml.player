@@ -28,7 +28,11 @@ export default {
           email: email.value,
           md5_password: md5(md5_password.value)
         },
-        success: () => ctx.$router.replace('/'),
+        success: () => {
+          const userData = ctx.$store.state;
+          localStorage.setItem('userData', JSON.stringify(userData));
+          ctx.$router.replace('/');
+        },
         failed: message => console.log(message)
       });
     };
