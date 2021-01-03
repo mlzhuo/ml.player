@@ -3,7 +3,6 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import './assets/scss/index.scss';
-import { $get, $post } from './assets/utils/axios';
 import {
   TOGGLE_SHOW_MUSIC_BAR,
   TOGGLE_SHOW_NAVIGATION_BAR
@@ -32,8 +31,6 @@ const setModel = () => {
 };
 
 const app = createApp(App, {});
-app.provide('$get', $get);
-app.provide('$post', $post);
 app.provide('styleModel', setModel());
 app
   .use(store)

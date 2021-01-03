@@ -1,10 +1,12 @@
 import { createStore } from 'vuex';
+import { $post } from '../assets/utils/axios';
 import {
   TOGGLE_SHOW_MUSIC_BAR,
   TOGGLE_SHOW_NAVIGATION_BAR,
   SET_NAVIGATION_BAR_TITLE,
+  LOGIN,
   LOGIN_SUCCESS,
-  SAVE_USERINFO
+  LOGIN_FAILED
 } from './constant';
 export default createStore({
   state: {
@@ -25,13 +27,29 @@ export default createStore({
     [SET_NAVIGATION_BAR_TITLE]: (state, navigationBarTitle) => {
       state.navigationBarTitle = navigationBarTitle;
     },
-    [SAVE_USERINFO]: (state, userInfo) => {
+    [LOGIN_SUCCESS](state, userInfo) {
       state.userInfo = Object.assign(state.userInfo, userInfo);
+    },
+    [LOGIN_FAILED](state) {
+      state.userInfo = {};
     }
   },
   actions: {
-    [LOGIN_SUCCESS]({ commit }, payload) {
-      commit(SAVE_USERINFO, payload);
+    async [LOGIN]({ commit }, { data, success, failed }) {
+      const { email, md5_password } = data;
+      const res = await $post({
+        url: `login?timestamp=${+new Date()}`,
+        data: { email, md5_password }
+      });
+      if (res.status == 200 && res.data.code == 200) {
+        const { cookie, profile } = res.data;
+        commit(LOGIN_SUCCESS, { cookie, ...profile });
+        success && success({ cookie, ...profile });
+      } else {
+        const { message } = res.data;
+        commit(LOGIN_FAILED);
+        failed && failed(message);
+      }
     }
   },
   modules: {}

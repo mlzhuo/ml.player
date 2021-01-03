@@ -10,7 +10,9 @@
 	"dependencies": {
 		"axios": "^0.21.1",
 		"core-js": "^3.6.5",
+		"js-md5": "^0.7.3",
 		"lodash": "^4.17.20",
+		"moment": "^2.29.1",
 		"vue": "^3.0.4",
 		"vue-router": "^4.0.2",
 		"vuex": "^4.0.0-rc.2"
