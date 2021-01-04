@@ -11,38 +11,41 @@
   </div>
 </template>
 <script>
-import { getCurrentInstance, inject, ref } from 'vue';
-import md5 from 'js-md5';
-import { SET_NAVIGATION_BAR_TITLE, LOGIN } from '../store/constant';
+import { getCurrentInstance, inject, ref } from "vue";
+import md5 from "js-md5";
+import {
+  SET_NAVIGATION_BAR_TITLE,
+  LOGIN,
+  LOGIN_SUCCESS,
+  UPDATE_LOCAL_DATA,
+} from "../store/constant";
 export default {
   setup() {
     const { ctx } = getCurrentInstance();
-    ctx.$store.commit(SET_NAVIGATION_BAR_TITLE, '登录');
-    const styleModel = inject('styleModel');
-    const email = ref('lzhuo_1995@163.com');
-    const md5_password = ref('');
-    const login = () => {
+    ctx.$store.commit(SET_NAVIGATION_BAR_TITLE, "登录");
+    const styleModel = inject("styleModel");
+    const email = ref("lzhuo_1995@163.com");
+    const md5_password = ref("");
+    const login = async () => {
       if (!email.value || !md5_password.value) return;
-      ctx.$store.dispatch(LOGIN, {
+      const res = await ctx.$store.dispatch(LOGIN, {
         data: {
           email: email.value,
-          md5_password: md5(md5_password.value)
+          md5_password: md5(md5_password.value),
         },
-        success: () => {
-          const userData = ctx.$store.state;
-          localStorage.setItem('userData', JSON.stringify(userData));
-          ctx.$router.replace('/');
-        },
-        failed: message => alert(message)
       });
+      const { cookie, profile } = res.data;
+      ctx.$store.commit(LOGIN_SUCCESS, { cookie, ...profile });
+      ctx.$store.commit(UPDATE_LOCAL_DATA);
+      ctx.$router.replace("/");
     };
     return {
       styleModel,
       email,
       md5_password,
-      login
+      login,
     };
-  }
+  },
 };
 </script>
 

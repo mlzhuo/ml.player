@@ -8,7 +8,11 @@
       :key="index"
       @click="itemTap(item.id)"
     >
-      <img :style="imgStyle" :src="item.coverImgUrl" v-if="item.coverImgUrl" />
+      <img
+        :style="imgStyle"
+        :src="item.coverImgUrl + '?param=210y210'"
+        v-if="item.coverImgUrl"
+      />
       <div :class="['add-new', styleModel]" :style="imgStyle" v-if="item.add">
         <div class="flex align-center content-center">
           <i class="iconfont ml-add"></i>
@@ -22,35 +26,35 @@
 </template>
 
 <script>
-import { computed, getCurrentInstance, inject } from 'vue';
-import _ from 'lodash';
-import { FILTER_USER_PLAYLIST } from '../store/constant';
+import { computed, getCurrentInstance, inject } from "vue";
+import _ from "lodash";
+import { FILTER_USER_PLAYLIST } from "../store/constant";
 export default {
   props: {
     itemHeight: {
-      type: Number
+      type: Number,
     },
     column: {
       type: Number,
-      default: 3
+      default: 3,
     },
     gap: {
       type: Number,
-      default: 10
+      default: 10,
     },
     specialType: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   emits: {
     itemHeight: () => true,
     gap: () => true,
     column: () => true,
-    specialType: () => true
+    specialType: () => true,
   },
   setup() {
-    const styleModel = inject('styleModel');
+    const styleModel = inject("styleModel");
     const { ctx } = getCurrentInstance();
     const { itemHeight, column, gap, specialType } = ctx;
     const screenWidth = document.body.clientWidth;
@@ -72,16 +76,16 @@ export default {
       return tempList;
     });
 
-    const itemTap = id => ctx.$router.push(`/playlistdetail?id=${id}`);
+    const itemTap = (id) => ctx.$router.push(`/playlistdetail?id=${id}`);
 
     return {
       styleModel,
       itemStyle,
       imgStyle,
       listData,
-      itemTap
+      itemTap,
     };
-  }
+  },
 };
 </script>
 

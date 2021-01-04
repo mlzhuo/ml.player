@@ -4,13 +4,13 @@
       v-for="item in musicList"
       :key="item.id"
       class="list-item flex align-center content-between"
-      @click="itemTap(item.id)"
+      @click="itemTap(item)"
     >
-      <img :src="item.al.picUrl" />
+      <img :src="item.al.picUrl + '?param=80y80'" />
       <div class="item-info flex column content-center">
         <text class="song-name one-lines-text">{{ item.name }}</text>
         <text class="singer-name one-lines-text"
-          >{{ item.ar.map(v => v.name).join(' / ') }} 《{{
+          >{{ item.ar.map((v) => v.name).join(" / ") }} 《{{
             item.al.name
           }}》</text
         >
@@ -23,29 +23,29 @@
 </template>
 
 <script>
-import { getCurrentInstance, inject } from 'vue';
-import { CHECK_MUSIC } from '../store/constant';
+import { getCurrentInstance, inject } from "vue";
 export default {
   props: {
     musicList: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   emits: {
-    musicList: () => true
+    musicList: () => true,
+    itemTap: () => true,
   },
   setup() {
     const { ctx } = getCurrentInstance();
-    const styleModel = inject('styleModel');
-    const itemTap = id => {
-      ctx.$store.dispatch(CHECK_MUSIC, { id });
+    const styleModel = inject("styleModel");
+    const itemTap = async (item) => {
+      ctx.$emit("itemTap", item);
     };
     return {
       styleModel,
-      itemTap
+      itemTap,
     };
-  }
+  },
 };
 </script>
 
