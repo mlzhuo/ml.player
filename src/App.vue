@@ -1,5 +1,8 @@
 <template>
-  <div :class="['app-inner-content', styleModel]">
+  <div
+    :class="['app-inner-content', styleModel]"
+    :style="isShowNavigationBar ? 'padding-top:64px' : ''"
+  >
     <NavigationBar
       v-if="isShowNavigationBar"
       :title="navigationBarTitle"
@@ -10,13 +13,13 @@
 </template>
 
 <script>
-import NavigationBar from './components/NavigationBar';
-import MusicToolBar from './components/MusicToolBar.vue';
-import { computed, getCurrentInstance, inject } from 'vue';
+import NavigationBar from "./components/NavigationBar";
+import MusicToolBar from "./components/MusicToolBar.vue";
+import { computed, getCurrentInstance, inject } from "vue";
 export default {
   components: { MusicToolBar, NavigationBar },
   setup() {
-    const styleModel = inject('styleModel');
+    const styleModel = inject("styleModel");
     const { ctx } = getCurrentInstance();
     const isShowMusicBar = computed(() => ctx.$store.state.isShowMusicBar);
     const isShowNavigationBar = computed(
@@ -29,9 +32,9 @@ export default {
       styleModel,
       isShowMusicBar,
       isShowNavigationBar,
-      navigationBarTitle
+      navigationBarTitle,
     };
-  }
+  },
 };
 </script>
 

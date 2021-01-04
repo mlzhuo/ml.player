@@ -8,35 +8,39 @@
 </template>
 
 <script>
-import { getCurrentInstance, inject } from 'vue';
+import { getCurrentInstance, inject } from "vue";
 export default {
   props: {
     title: {
       type: String,
-      default: 'ML PLAYER'
-    }
+      default: "ML PLAYER",
+    },
   },
   emits: {
-    title: () => true
+    title: () => true,
   },
   setup() {
-    const styleModel = inject('styleModel');
+    const styleModel = inject("styleModel");
     const { ctx } = getCurrentInstance();
     const back = () => {
-      ctx.$router.back()
+      ctx.$router.back();
     };
     return {
       styleModel,
-      back
+      back,
     };
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .navigation-bar {
+  width: 100%;
   height: 64px;
   padding: 0 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
   .back-icon {
     width: 45px;
     height: 64px;
