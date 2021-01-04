@@ -3,7 +3,11 @@
     <div class="music-name">{{ music.musicName }}</div>
     <div class="artist-name">{{ music.artistName }}</div>
     <img class="play" :src="music.picUrl" />
-    <div class="lyric"></div>
+    <div class="lyric">
+      <div class="inner-content flex column align-center">
+        <p class="flex align-center"></p>
+      </div>
+    </div>
     <div class="control"></div>
   </div>
 </template>
@@ -61,13 +65,13 @@ export default {
 .play-page {
   height: 100vh;
   width: 100vw;
-  padding: 20px;
+  padding: 20px 20px 0;
   box-sizing: border-box;
   .music-name {
     font-weight: bold;
   }
   .artist-name {
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     font-size: 14px;
   }
   img {
@@ -76,19 +80,31 @@ export default {
     border-radius: 50%;
     transform: rotate(0);
     &.play {
-      animation: imgRun 60s linear infinite paused;
+      animation: imgRun 60s linear infinite; //paused
     }
   }
   .lyric {
     width: 100vw;
     flex: 1;
-    padding: 20px 0;
-    background: #666;
+    margin: 50px;
+    overflow: hidden;
+    position: relative;
+    .inner-content {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+      transition: top 0.2s ease;
+      overflow: hidden;
+      p {
+        margin: 0;
+        height: 30px;
+      }
+    }
   }
   .control {
     width: 100vw;
     height: 100px;
-    background: #ccc;
   }
 }
 @keyframes imgRun {
