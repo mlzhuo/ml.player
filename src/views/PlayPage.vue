@@ -148,9 +148,9 @@ export default {
         }
       }
       &.r {
+        transform: rotate(180deg);
         .iconfont {
           font-size: 28px;
-          transform: rotate(180deg);
         }
       }
     }

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // 创建axios
 const service = axios.create({
-	baseURL: 'http://192.168.7.40:4000/'
+	baseURL: 'http://192.168.2.116:4000/'
 });
 
 // 添加请求拦截器

@@ -1,25 +1,47 @@
 <template>
-  <div :class="['music-bar flex align-end content-between', styleModel]">
+  <div
+    :class="['music-bar flex align-end content-between', styleModel]"
+    @click="goPlayPage"
+  >
     <div class="info-view flex align-center">
-      <img />
+      <img :src="currentMusic.al.picUrl" />
       <div class="name flex column content-center">
-        <text class="song-name one-lines-text">On The Square</text>
-        <text class="singer-name one-lines-text">Mac Demarco</text>
+        <text class="song-name one-lines-text">{{ currentMusic.al.name }}</text>
+        <text class="singer-name one-lines-text">{{
+          currentMusic.ar.map((v) => v.name).join(" / ")
+        }}</text>
       </div>
     </div>
-    <div class="play-btn"><i class="iconfont ml-bofang1"></i></div>
+    <div class="play-btn" @click.stop="toggglePlay">
+      <i v-if="!isPlaying" class="iconfont ml-bofang1"></i>
+      <i v-else class="iconfont ml-stop"></i>
+    </div>
   </div>
 </template>
 
 <script>
-import { inject } from 'vue';
+import { computed, getCurrentInstance, inject } from "vue";
+import { TOGGLE_PLAY_MUSIC } from "../store/constant";
 export default {
   setup() {
-    const styleModel = inject('styleModel');
-    return {
-      styleModel
+    const { ctx } = getCurrentInstance();
+    const styleModel = inject("styleModel");
+    const isPlaying = computed(() => ctx.$store.state.isPlaying);
+    const currentMusic = computed(() => ctx.$store.state.currentMusic);
+    const toggglePlay = () => {
+      ctx.$store.commit(TOGGLE_PLAY_MUSIC, !isPlaying.value);
     };
-  }
+    const goPlayPage = () => {
+      ctx.$router.push("/playpage");
+    };
+    return {
+      styleModel,
+      isPlaying,
+      toggglePlay,
+      currentMusic,
+      goPlayPage,
+    };
+  },
 };
 </script>
 
@@ -57,7 +79,7 @@ export default {
     border-radius: 10px 0px 0px 0px;
     line-height: 70px;
     text-align: center;
-    .ml-bofang1 {
+    .iconfont {
       font-size: 25px;
       color: #fff;
     }
