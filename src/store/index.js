@@ -18,7 +18,8 @@ import {
 	GET_MUSIC_URL,
 	GET_MUSIC_LYRIC,
 	SAVE_CURRENT_MUSIC,
-	SAVE_CURRENT_PLAYLIST
+	SAVE_CURRENT_PLAYLIST,
+	TOGGLE_PLAY_MUSIC
 } from './constant';
 
 const resFormat = res => {
@@ -44,7 +45,8 @@ export default createStore({
 		currentPlayList: {
 			playlist: {},
 			songs: []
-		}
+		},
+		isPlaying: false
 	},
 	mutations: {
 		[TOGGLE_SHOW_MUSIC_BAR]: (state, isShowMusicBar) => {
@@ -76,6 +78,9 @@ export default createStore({
 		},
 		[SAVE_CURRENT_PLAYLIST](state, playList) {
 			state.currentPlayList = playList;
+		},
+		[TOGGLE_PLAY_MUSIC](state, isPlaying) {
+			state.isPlaying = isPlaying;
 		}
 	},
 	actions: {
