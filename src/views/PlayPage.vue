@@ -67,7 +67,8 @@ export default {
       };
     };
     getMusic();
-    ctx.$store.commit(TOGGLE_PLAY_MUSIC, true);
+    const from = ctx.$router.options.history.state.back;
+    from != "/" && ctx.$store.commit(TOGGLE_PLAY_MUSIC, false);
     const isPlaying = computed(() => ctx.$store.state.isPlaying);
     const toggglePlay = () => {
       ctx.$store.commit(TOGGLE_PLAY_MUSIC, !isPlaying.value);

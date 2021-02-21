@@ -4,9 +4,9 @@
     @click="goPlayPage"
   >
     <div class="info-view flex align-center">
-      <img :src="currentMusic.al.picUrl" />
+      <img :src="currentMusic.al.picUrl || defaultAvatarUrl" />
       <div class="name flex column content-center">
-        <text class="song-name one-lines-text">{{ currentMusic.al.name }}</text>
+        <text class="song-name one-lines-text">{{ currentMusic.name }}</text>
         <text class="singer-name one-lines-text">{{
           currentMusic.ar.map((v) => v.name).join(" / ")
         }}</text>
@@ -22,6 +22,7 @@
 <script>
 import { computed, getCurrentInstance, inject } from "vue";
 import { TOGGLE_PLAY_MUSIC } from "../store/constant";
+import defaultAvatarUrl from '../assets/images/ml-player.png';
 export default {
   setup() {
     const { ctx } = getCurrentInstance();
@@ -35,6 +36,7 @@ export default {
       ctx.$router.push("/playpage");
     };
     return {
+      defaultAvatarUrl,
       styleModel,
       isPlaying,
       toggglePlay,

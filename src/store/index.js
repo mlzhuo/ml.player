@@ -41,7 +41,10 @@ export default createStore({
 		navigationBarTitle: 'ML Player',
 		userInfo: {},
 		playList: [],
-		currentMusic: {},
+		currentMusic: {
+			al: {},
+			ar: []
+		},
 		currentPlayList: {
 			playlist: {},
 			songs: []
@@ -74,7 +77,24 @@ export default createStore({
 			state.playList = playList;
 		},
 		[SAVE_CURRENT_MUSIC](state, music) {
-			state.currentMusic = Object.assign(state.currentMusic, music);
+			for (const key in music) {
+				if (Object.hasOwnProperty.call(music, key)) {
+					const value = music[key];
+					const url =
+						state.currentMusic.url &&
+						state.currentMusic.url.slice(
+							state.currentMusic.url.lastIndexOf('/')
+						);
+					if (key == 'url') {
+						url != value.slice(value.lastIndexOf('/')) &&
+							(state.currentMusic[key] = value);
+					} else {
+						state.currentMusic[key] = value;
+					}
+				}
+			}
+			// state.currentMusic = Object.assign(state.currentMusic, music);
+			localStorage.setItem('userData', JSON.stringify(state));
 		},
 		[SAVE_CURRENT_PLAYLIST](state, playList) {
 			state.currentPlayList = playList;

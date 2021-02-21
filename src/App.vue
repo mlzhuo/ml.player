@@ -8,20 +8,23 @@
       :title="navigationBarTitle"
     ></NavigationBar>
     <router-view />
-    <MusicToolBar v-show="isShowMusicBar"></MusicToolBar>
+    <MusicToolBar v-show="isShowMusicBar && currentMusic.url"></MusicToolBar>
+    <MusicAudio></MusicAudio>
   </div>
 </template>
 
 <script>
 import NavigationBar from "./components/NavigationBar";
 import MusicToolBar from "./components/MusicToolBar.vue";
+import MusicAudio from "./components/MusicAudio.vue";
 import { computed, getCurrentInstance, inject } from "vue";
 export default {
-  components: { MusicToolBar, NavigationBar },
+  components: { MusicToolBar, NavigationBar, MusicAudio },
   setup() {
     const styleModel = inject("styleModel");
     const { ctx } = getCurrentInstance();
     const isShowMusicBar = computed(() => ctx.$store.state.isShowMusicBar);
+    const { currentMusic } = ctx.$store.state; 
     const isShowNavigationBar = computed(
       () => ctx.$store.state.isShowNavigationBar
     );
@@ -31,6 +34,7 @@ export default {
     return {
       styleModel,
       isShowMusicBar,
+      currentMusic,
       isShowNavigationBar,
       navigationBarTitle,
     };

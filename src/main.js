@@ -11,7 +11,7 @@ import {
 
 const userData = localStorage.getItem('userData');
 if (userData) {
-	store.commit(INIT_STATE, JSON.parse(userData));
+	store.commit(INIT_STATE, {...JSON.parse(userData), isPlaying: false});
 }
 
 const noShoNavigationBarPathList = ['/', '/playpage'];
